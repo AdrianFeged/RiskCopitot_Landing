@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiskCopilot EA - Intelligent Trading Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#78716c',
+                        secondary: '#57534e',
+                        accent: '#a8a29e',
+                        dark: '#1c1917',
+                        light: '#f5f5f4',
+                        card: '#292524'
+                    },
+                    fontFamily: {
+                        heading: ['Manrope', 'sans-serif'],
+                        body: ['Manrope', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #e7e5e4;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #a8a29e;
+            border-radius: 4px;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #292524;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #57534e;
+        }
+        
+        /* Pulse Animation for CTAs */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(120, 113, 108, 0.7);
+            }
+            
+            70% {
+                transform: scale(1.02);
+                box-shadow: 0 0 0 10px rgba(120, 113, 108, 0);
+            }
+            
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(120, 113, 108, 0);
+            }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Modern Sepia/Gray Theme */
+        :root {
+            --primary-bg: #1c1917;
+            --primary-text: #f5f5f4;
+            --secondary-bg: #292524;
+            --card-bg: #292524;
+        }
+    </style>
+</head>
+<body class="dark bg-[var(--primary-bg)] text-[var(--primary-text)] font-body transition-all duration-300">
+    <!-- Top Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-[var(--card-bg)] neon-glow">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="your-logo-path.png" alt="RiskCopilot EA Logo" class="w-10 h-10 rounded-full">
+                <div>
+                    <h1 class="text-xl font-heading font-bold">RiskCopilot EA</h1>
+                    <p class="text-xs text-accent -mt-1">MT5 Expert Advisor</p>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 font-medium">
+                <a href="#features" class="hover:text-primary transition">Features</a>
+                <a href="#modes" class="hover:text-primary transition">Modes</a>
+                <a href="#tools" class="hover:text-primary transition">Tools</a>
+                <a href="#pricing" class="hover:text-primary transition">Pricing</a>
+                <a href="#testimonials" class="hover:text-primary transition">Testimonials</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-[var(--secondary-bg)]">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="hidden md:block bg-primary hover:bg-secondary text-white px-6 py-2 rounded-full font-medium transition">Download Now</button>
+                
+                <button class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <div class="inline-block mb-4 px-4 py-1 bg-gradient-to-r from-accent to-yellow-500 text-dark rounded-full text-sm font-medium">
+                    <i class="fas fa-bolt mr-2"></i>NEW RELEASE: VERSION 2.0
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold font-heading mb-6">
+                    See Your Risk.<br>Master Your Trade.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+                    RiskCopilot EA is your professional trading companion designed to enhance position sizing accuracy and risk management without taking control of your trading decisions.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <button class="bg-primary hover:bg-secondary text-black px-8 py-4 rounded-full font-medium text-lg transition neon-glow neon-text">
+                        Download RiskCopilot EA <i class="fas fa-download ml-2"></i>
+                    </button>
+                    <button class="border-2 border-accent text-accent hover:bg-accent hover:text-black px-8 py-4 rounded-full font-medium text-lg transition neon-glow-accent neon-text">
+                        Watch Demo <i class="fas fa-play-circle ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-16 md:mt-24 max-w-5xl mx-auto bg-gradient-to-r from-primary to-indigo-600 rounded-xl shadow-2xl overflow-hidden">
+                <div class="aspect-video bg-gray-200 rounded-xl flex items-center justify-center">
+                    <div class="relative w-full h-full flex items-center justify-center">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-gray-300 border-2 border-dashed rounded-xl w-full h-full"></div>
+                        </div>
+                        <div class="absolute z-10 text-white text-center">
+                            <div class="w-20 h-20 rounded-full bg-primary/80 flex items-center justify-center mb-4 mx-auto">
+                                <i class="fas fa-play text-3xl"></i>
+                            </div>
+                            <p class="text-xl font-medium">RiskCopilot EA in Action</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features -->
+    <section id="features" class="py-16 bg-[var(--secondary-bg)]">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading mb-4">Core Features</h2>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Advanced tools that provide real-time calculations and intuitive risk assessment to optimize your market performance.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="bg-[var(--card-bg)] rounded-xl p-6 shadow-lg border-l-4 border-primary">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-calculator text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading mb-3">Intelligent Position Sizing</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Automatic position size calculation based on customizable risk percentage and account balance.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Multi-currency account support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Real-time risk/reward ratio analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Interactive drag-and-drop SL/TP adjustment</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Feature Card 2 -->
+                <div class="bg-[var(--card-bg)] rounded-xl p-6 shadow-lg border-l-4 border-accent">
+                    <div class="w-14 h-14 rounded-full bg-yellow-500/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading mb-3">Smart Spread Monitoring</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Intelligent spread filtering with instrument-specific limits based on real market statistics.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Adaptive spread thresholds per asset class</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Real-time spread alerts with visual warnings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Market session awareness</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Feature Card 3 -->
+                <div class="bg-[var(--card-bg)] rounded-xl p-6 shadow-lg border-l-4 border-indigo-500">
+                    <div class="w-14 h-14 rounded-full bg-indigo-500/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-cogs text-2xl text-indigo-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading mb-3">Advanced Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Comprehensive performance analytics including win rate analysis and account behavior tracking.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Visual RRR calculations in real-time</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Universal instrument compatibility</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Multi-language support</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operating Modes -->
+    <section id="modes" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading mb-4">Three Dynamic Operating Modes</h2>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Choose the mode that fits your trading style and current needs
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Mode 1 -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-2xl p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-binoculars text-xl text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading">Scout Mode</h3>
+                    </div>
+                    <p class="mb-6 text-gray-700 dark:text-gray-300">
+                        Pre-trade analysis with movable price lines, visual SL/TP rectangles, and instant position sizing. Perfect for planning your trades.
+                    </p>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-lg">
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Visual risk assessment tools</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Drag-and-drop price markers</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Real-time position sizing</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Mode 2 -->
+                <div class="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-2xl p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-flask text-xl text-yellow-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading">SandBox Mode</h3>
+                    </div>
+                    <p class="mb-6 text-gray-700 dark:text-gray-300">
+                        Backtesting environment with fixed visual elements for historical strategy testing. Experiment without risking real capital.
+                    </p>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-lg">
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Historical spread analysis</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Strategy simulation tools</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Performance benchmarking</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Mode 3 -->
+                <div class="bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-2xl p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-trophy text-xl text-green-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading">Command Mode</h3>
+                    </div>
+                    <p class="mb-6 text-gray-700 dark:text-gray-300">
+                        Active position monitoring with automatic visual updates and performance tracking. Take command of your open trades.
+                    </p>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-lg">
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Live position monitoring</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Real-time risk assessment</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>One-click trade execution</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Tools -->
+    <section id="tools" class="py-20 bg-[var(--secondary-bg)]">
+        <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold font-heading mb-4">Advanced Trading Tools</h2>
+                    <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Comprehensive suite of professional tools to enhance your trading experience.
+                    </p>
+                </div>
+                
+                <div class="bg-[var(--card-bg)] rounded-2xl shadow-xl overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 p-8 md:p-12">
+                            <div class="flex items-center mb-8">
+                                <div class="mr-4 text-accent">
+                                    <i class="fas fa-bolt text-3xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold font-heading">One-Click Execution</h3>
+                            </div>
+                            <p class="mb-6 text-gray-600 dark:text-gray-300">
+                                Execute trades instantly with our optimized trading panel. Buy, Sell, Close positions, or Close All orders with a single click.
+                            </p>
+                            
+                            <div class="flex items-center mb-8 mt-12">
+                                <div class="mr-4 text-primary">
+                                    <i class="fas fa-radar text-3xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold font-heading">Radar Performance Analytics</h3>
+                            </div>
+                            <p class="mb-6 text-gray-600 dark:text-gray-300">
+                                Advanced radar chart displays comprehensive account statistics and trading performance metrics at a glance.
+                            </p>
+                            
+                            <div class="flex items-center mb-8 mt-12">
+                                <div class="mr-4 text-green-500">
+                                    <i class="fas fa-globe text-3xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold font-heading">Multi-Currency Support</h3>
+                            </div>
+                            <p class="mb-6 text-gray-600 dark:text-gray-300">
+                                Trade any instrument with any account currency. Automatic conversion with real-time rates.
+                            </p>
+                        </div>
+                        
+                        <div class="md:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-primary to-indigo-700">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-80 md:h-96 flex items-center justify-center">
+                                <div class="text-white text-center">
+                                    <i class="fas fa-chart-pie text-5xl mb-4"></i>
+                                    <p>RiskCopilot EA Interface Preview</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading mb-4">Simple & Transparent Pricing</h2>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Get started with RiskCopilot EA today with our one-time pricing. All plans include unlimited updates.
+                </p>
+            </div>
+            
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Standard Plan -->
+                <div class="bg-[var(--card-bg)] rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-8 border-b">
+                        <h3 class="text-xl font-bold font-heading mb-4">Standard</h3>
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$97</span>
+                            <span class="text-gray-600 dark:text-gray-400">/ lifetime</span>
+                        </div>
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Single MT5 Account License</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Basic Risk Management Tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Scout & SandBox Modes</span>
+                            </li>
+                            <li class="flex items-start opacity-50">
+                                <i class="fas fa-times-circle text-gray-500 mt-1 mr-3"></i>
+                                <span>Priority Support</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8">
+                        <button class="w-full py-3 px-6 text-center rounded-lg bg-primary hover:bg-secondary text-white font-medium transition">
+                            Get Standard License
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Professional Plan (Featured) -->
+                <div class="bg-[var(--card-bg)] rounded-xl shadow-2xl border-2 border-accent relative">
+                    <div class="absolute top-0 right-0 bg-primary text-white py-1 px-6 rounded-bl-lg font-medium">
+                        MOST POPULAR
+                    </div>
+                    <div class="p-8 border-b">
+                        <h3 class="text-xl font-bold font-heading mb-4">Professional</h3>
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$197</span>
+                            <span class="text-gray-600 dark:text-gray-400">/ lifetime</span>
+                        </div>
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Up to 3 MT5 Accounts</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Full Feature Set</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>All Operating Modes</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Priority Support</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Custom Indicator Integration</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8">
+                        <button class="w-full py-3 px-6 text-center rounded-lg bg-primary hover:bg-secondary text-white font-medium transition">
+                            Get Professional License
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="bg-[var(--card-bg)] rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-8 border-b">
+                        <h3 class="text-xl font-bold font-heading mb-4">Enterprise</h3>
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$349</span>
+                            <span class="text-gray-600 dark:text-gray-400">/ lifetime</span>
+                        </div>
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Unlimited MT5 Accounts</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Full Feature Set</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>All Operating Modes</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Premium Support</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Custom Theme Development</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8">
+                        <button class="w-full py-3 px-6 text-center rounded-lg bg-primary hover:bg-secondary text-white font-medium transition">
+                            Get Enterprise License
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Final CTA -->
+    <section class="py-24 bg-gradient-to-r from-stone-700 to-stone-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold font-heading mb-6">
+                Ready to Master Your Risk?
+            </h2>
+            <p class="max-w-2xl mx-auto mb-10 text-blue-100">
+                Download RiskCopilot EA today and transform how you trade. Professional tools, precise calculations, and unparalleled risk visualization.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button class="bg-white text-primary hover:bg-blue-100 px-8 py-4 rounded-full font-medium text-lg transition">
+                    Download RiskCopilot EA <i class="fas fa-download ml-2"></i>
+                </button>
+                <button class="bg-transparent border-2 border-white hover:bg-white/10 px-8 py-4 rounded-full font-medium text-lg transition">
+                    View Detailed Documentation
+                </button>
+            </div>
+            <p class="mt-10 text-blue-200">
+                <i class="fas fa-lock mr-2"></i> Secure Purchase | 30-Day Money Back Guarantee
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--dark)] text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <img src="your-logo-path.png" alt="RiskCopilot EA Logo" class="w-10 h-10 rounded-full">
+                        <div>
+                            <h1 class="text-xl font-heading font-bold">RiskCopilot EA</h1>
+                            <p class="text-accent text-sm -mt-1">MT5 Expert Advisor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Your intelligent trading assistant for enhanced position sizing accuracy and risk management.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-lg font-bold font-heading mb-6">Resources</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Tutorial Videos</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Blog & Updates</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Support Center</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">API Reference</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-lg font-bold font-heading mb-6">Company</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>
+                            <a href="#" class="hover:text-primary transition">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Contact Sales</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Careers</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Press</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-primary transition">Legal</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-lg font-bold font-heading mb-6">Contact</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex">
+                            <i class="fas fa-envelope mt-1 mr-3 text-primary"></i>
+                            <span>support@riskcopilot.com</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-headset mt-1 mr-3 text-primary"></i>
+                            <span>Live Chat Support</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-phone mt-1 mr-3 text-primary"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8">
+                        <h4 class="font-medium mb-3">Subscribe to Updates</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email address" class="bg-slate-800 px-4 py-2 rounded-l w-full focus:outline-none">
+                            <button class="bg-primary px-4 py-2 rounded-r">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+                <div>
+                    &copy; 2023 RiskCopilot EA. All rights reserved.
+                </div>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            const icon = this.querySelector('i');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        // Check system preference for dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-toggle').querySelector('i').classList.remove('fa-moon');
+            document.getElementById('theme-toggle').querySelector('i').classList.add('fa-sun');
+        }
+    </script>
+</body>
+</html>
